@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: java-demo
+  name: java-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-demo
+  template:
+    metadata:
+      labels:
+        app: java-demo
+    spec:
+      containers:
+      - image: 192.168.252.131/dev/java-demo:29
+        name: java-demo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-demo
+  namespace: test
+spec:
+  selector:
+    project: www
+    app: java-demo
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  type: NodePort
+
